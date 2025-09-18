@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import ProdutoCard from './ProdutoCard';
-import { Product } from '@/types';
+import { Product } from '../../types';
 import { ImageModal } from '../ui/ImageModal';
 import { motion, AnimatePresence } from 'framer-motion';
 
