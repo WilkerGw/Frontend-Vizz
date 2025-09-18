@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// Estrutura de dados do menu atualizada com "Lentes de Contato"
 const menuItems = [
   {
     label: "Óculos de Grau",
@@ -25,7 +26,7 @@ const menuItems = [
           href: "https://oticasvizz.lojavirtualnuvem.com.br/armacoes/balgriff/",
         },
         {
-          label: "Balgriff",
+          label: "Balgriff (3 peças)",
           href: "https://oticasvizz.lojavirtualnuvem.com.br/armacoes/balgriff/",
         },
       ],
@@ -44,10 +45,9 @@ const menuItems = [
     href: "/#",
     submenu: {
       links: [
-        { label: "Quadrados", href: "https://oticasvizz.lojavirtualnuvem.com.br/oculos-de-sol/quadrados/", target: "_blank" },
-        { label: "Arredondados", href: "https://oticasvizz.lojavirtualnuvem.com.br/oculos-de-sol/arredondados/", target: "_blank" },
-        { label: "Meio Aro", href: "https://oticasvizz.lojavirtualnuvem.com.br/armacoes/balgriff/", target: "_blank" },
-        { label: "Balgriff", href: "https://oticasvizz.lojavirtualnuvem.com.br/armacoes/balgriff/", target: "_blank" },
+        { label: "Masculino", href: "https://oticasvizz.lojavirtualnuvem.com.br/oculos-de-sol/masculino/", target: "_blank" },
+        { label: "Feminino", href: "https://oticasvizz.lojavirtualnuvem.com.br/oculos-de-sol/feminino/", target: "_blank" },
+        { label: "Unissex", href: "https://oticasvizz.lojavirtualnuvem.com.br/oculos-de-sol/unissex/", target: "_blank" },
       ],
       images: [
         {
@@ -61,17 +61,21 @@ const menuItems = [
   },
   {
     label: "Lentes",
+    href: "/#lentes",
+  },
+  {
+    label: "Lentes de Contato",
     href: "/#",
     submenu: {
       links: [
-        { label: "Visão Simples", href: "/#lentes-visao-simples" },
-        { label: "Multifocais", href: "/#lentes-multifocais" },
+        { label: "Johnson & Johnson", href: "https://www.acuvue.com.br/", target: "_blank" },
+        { label: "Coopervision", href: "https://coopervision.com.br/", target: "_blank" },
       ],
       images: [
         {
-          src: "/images/menu-imgs/3.Webp",
-          alt: "Lentes",
-          href: "/#lentes",
+          src: "/images/menu-imgs/3.Webp", // Usando uma imagem existente
+          alt: "Lentes de Contato",
+          href: "/#",
         },
       ],
     },
@@ -182,31 +186,30 @@ export function Header() {
             onMouseEnter={() => handleMouseEnter(activeSubmenu)}
             onMouseLeave={handleMouseLeave}
           >
-            {/* --- CORREÇÃO APLICADA AQUI --- */}
-            {/* Container principal que centraliza o conteúdo */}
             <div className="container mx-auto px-8 py-6 flex justify-center items-center">
-              {/* Container interno que agrupa os links e a imagem */}
               <div className="flex items-center gap-16">
-                {/* Coluna de Links */}
                 <div>
                   <ul className="space-y-4">
                     {menuItems
                       .find((item) => item.label === activeSubmenu)
                       ?.submenu?.links.map((link) => (
                         <li key={link.label}>
+                          {/* --- ALTERAÇÃO APLICADA AQUI --- */}
                           <Link
                             href={link.href}
-                            className="text-gray-500 hover:text-yellow-500 transition-colors duration-200 text-lg whitespace-nowrap"
-                            target="_blank"
+                            className="relative group text-gray-500 hover:text-yellow-500 transition-colors duration-200 text-lg whitespace-nowrap"
+                            target={link.target}
+                            rel={link.target ? "noopener noreferrer" : undefined}
                           >
-                            {link.label}
+                            <span>{link.label}</span>
+                            {/* Efeito de sublinhado animado */}
+                            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-center"></span>
                           </Link>
                         </li>
                       ))}
                   </ul>
                 </div>
 
-                {/* Coluna de Imagens */}
                 <div>
                   {menuItems
                     .find((item) => item.label === activeSubmenu)
@@ -214,7 +217,7 @@ export function Header() {
                       <Link
                         href={image.href}
                         key={image.alt}
-                        className="block group w-64" // Largura fixa para a imagem
+                        className="block group w-64"
                       >
                         <div className="overflow-hidden rounded-lg">
                           <Image

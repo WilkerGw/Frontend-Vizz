@@ -1,10 +1,11 @@
 // src/types/index.ts
 
+// Atualize o tipo Product para incluir preço e URL
 export type Product = {
+  id: number;
   name: string;
-  mainImage: string;
-  extraImages: string[];
+  images: string[];
   price: string;
-  promoPrice: string;
+  storeUrl: string; // URL para a loja virtual
   category: 'grau' | 'solar';
 };

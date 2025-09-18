@@ -1,8 +1,9 @@
 'use client';
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+// A CORREÇÃO ESTÁ NESTA LINHA: Importando os hooks necessários do React
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import Image from 'next/image';
-import { MoveHorizontal } from 'lucide-react';
-import { Marquee } from '../ui/Marquee';
+import { MoveHorizontal, ShieldCheck } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface LentesFotossensiveisSectionProps {
   imagemAntes: string;
@@ -17,103 +18,121 @@ const LentesFotossensiveisSection: React.FC<LentesFotossensiveisSectionProps> = 
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleMove = useCallback((clientX: number, event?: TouchEvent) => {
-    if (event) {
-      event.preventDefault();
-    }
+  const handleMove = useCallback((clientX: number) => {
     if (!isDragging || !containerRef.current) return;
+    
     const rect = containerRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    let percentage = (x / rect.width) * 100;
-    if (percentage < 0) percentage = 0;
-    if (percentage > 100) percentage = 100;
+    const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+    const percentage = (x / rect.width) * 100;
     setSliderPosition(percentage);
   }, [isDragging]);
 
   const handleMouseMove = useCallback((e: MouseEvent) => handleMove(e.clientX), [handleMove]);
-  const handleMouseUp = useCallback(() => setIsDragging(false), []);
-  const handleTouchMove = useCallback((e: TouchEvent) => handleMove(e.touches[0].clientX, e), [handleMove]);
-  const handleTouchEnd = useCallback(() => setIsDragging(false), []);
+  const handleTouchMove = useCallback((e: TouchEvent) => handleMove(e.touches[0].clientX), [handleMove]);
+
+  const handleInteractionEnd = useCallback(() => {
+    setIsDragging(false);
+  }, []);
 
   useEffect(() => {
     if (isDragging) {
       window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-      window.addEventListener('touchmove', handleTouchMove, { passive: false });
-      window.addEventListener('touchend', handleTouchEnd);
+      window.addEventListener('touchmove', handleTouchMove);
+      window.addEventListener('mouseup', handleInteractionEnd);
+      window.addEventListener('touchend', handleInteractionEnd);
     }
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
       window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('mouseup', handleInteractionEnd);
+      window.removeEventListener('touchend', handleInteractionEnd);
     };
-  }, [isDragging, handleMouseMove, handleMouseUp, handleTouchMove, handleTouchEnd]);
+  }, [isDragging, handleMouseMove, handleTouchMove, handleInteractionEnd]);
 
   return (
-    // 2. ALTERAÇÃO NO PADDING DA SEÇÃO
-    <section className="relative w-full bg-gray-50 pt-12 md:pt-20 lg:h-screen lg:py-0 pb-[2rem]">
-      <div className="container mx-auto px-4 flex flex-col lg:flex-row items-center gap-10 h-full">
-        {/* Bloco de Texto (sem alterações) */}
-        <div className="lg:w-1/3 text-center lg:text-left">
-          <h2 className="text-3xl md:text-4xl font-light text-gray-500">
-            LENTES FOTOSSENSÍVEIS
-          </h2>
-          <p className="text-md text-gray-500 mt-2 mb-6">
-            Deslize horizontalmente e veja a magia acontecer.
-          </p>
-          <p className="text-gray-400 text-sm leading-relaxed mb-8">
-            As lentes fotossensíveis, também conhecidas como lentes de transição, oferecem proteção contra os raios nocivos do sol, principalmente os raios UVA e UVB.  Elas escurecem automaticamente em resposta à exposição à luz ultravioleta (UV), reduzindo o brilho e o ofuscamento, e protegendo seus olhos dos danos causados pela radiação solar. 
-          </p>
-          <button className="bg-yellow-400 text-white py-3 px-8 rounded-full hover:bg-yellow-500 transition-colors duration-300">
-            SAIBA MAIS
-          </button>
-        </div>
-
-        {/* Bloco do Comparador de Imagem */}
-        <div
-          ref={containerRef}
-          className="relative w-full lg:w-2/3 aspect-[4/3] lg:aspect-auto h-full max-h-[60vh] lg:max-h-full select-none rounded-lg cursor-ew-resize"
-          onMouseDown={() => setIsDragging(true)}
-          onTouchStart={() => setIsDragging(true)}
+    <section className="w-full bg-gray-50 py-20 overflow-hidden">
+      <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        
+        {/* Coluna de Texto */}
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="text-center lg:text-left"
         >
-          {/* Imagem "Antes" (clara) */}
-          <Image
-            src={imagemAntes}
-            alt="Modelo com lentes claras (fotossensíveis inativas)"
-            layout="fill"
-            // 1. IMAGEM COMPLETA, SEM CORTES
-            objectFit="contain"
-            priority
-            draggable={false}
-          />
-          {/* Imagem "Depois" (escura) */}
+          <h2 className="text-sm font-bold text-yellow-500 uppercase tracking-widest">
+            Visão Inteligente
+          </h2>
+          <h1 className="mt-2 text-3xl md:text-4xl font-semibold text-gray-800 tracking-tight">
+            Lentes que se Adaptam a Você
+          </h1>
+          <p className="mt-4 text-gray-600 max-w-xl mx-auto lg:mx-0">
+            Experimente o conforto das lentes fotossensíveis. Elas escurecem
+            automaticamente com a luz solar para proteger seus olhos e clareiam em
+            ambientes internos, oferecendo uma visão nítida em qualquer situação.
+          </p>
+
+          <div className="mt-8 flex items-center gap-3 justify-center lg:justify-start">
+            <ShieldCheck className="w-6 h-6 text-yellow-500" />
+            <span className="text-gray-700 font-semibold">Proteção UV total e conforto visual.</span>
+          </div>
+
+           <p className="mt-8 text-sm text-gray-500 max-w-xl mx-auto lg:mx-0">
+             <strong>Arraste a barra na imagem ao lado</strong> e veja a tecnologia em ação.
+          </p>
+        </motion.div>
+
+        {/* Coluna do Comparador de Imagem */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+        >
           <div
-            className="absolute top-0 left-0 w-full h-full"
-            style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+            ref={containerRef}
+            className="relative w-full max-w-xl mx-auto aspect-square select-none rounded-lg shadow-2xl cursor-ew-resize overflow-hidden"
+            onMouseDown={() => setIsDragging(true)}
+            onTouchStart={() => setIsDragging(true)}
           >
+            {/* Imagem "Depois" (escura) - Fica no fundo */}
             <Image
               src={imagemDepois}
               alt="Modelo com lentes escuras (fotossensíveis ativadas)"
               layout="fill"
-              // 1. IMAGEM COMPLETA, SEM CORTES
-              objectFit="contain"
+              objectFit="cover"
               priority
               draggable={false}
             />
-          </div>
-          {/* Slider (divisor e botão) */}
-          <div
-            className="absolute top-0 bottom-0 w-1 bg-white/80 pointer-events-none"
-            style={{ left: `${sliderPosition}%` }}
-          >
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg">
-              <MoveHorizontal className="text-gray-700" size={24} />
+
+            {/* Imagem "Antes" (clara) - Fica na frente e é cortada */}
+            <div
+              className="absolute top-0 left-0 w-full h-full"
+              style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
+            >
+              <Image
+                src={imagemAntes}
+                alt="Modelo com lentes claras (fotossensíveis inativas)"
+                layout="fill"
+                objectFit="cover"
+                priority
+                draggable={false}
+              />
+            </div>
+            
+            {/* Divisor */}
+            <div
+              className="absolute top-0 bottom-0 w-1 bg-white/80 pointer-events-none"
+              style={{ left: `${sliderPosition}%` }}
+            >
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow-lg">
+                <MoveHorizontal className="text-gray-700" size={24} />
+              </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-      <Marquee/>
     </section>
   );
 };

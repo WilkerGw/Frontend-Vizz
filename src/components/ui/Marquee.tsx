@@ -1,47 +1,38 @@
+"use client";
+
 import Link from 'next/link';
-import Image from 'next/image';
+import { motion } from 'framer-motion';
 
-/**
- * Componente Marquee
- * Cria uma faixa de rolagem infinita com texto e imagens.
- * Ideal para anúncios e avisos importantes.
- */
+// Conteúdo sem a logo
+const MarqueeContent = () => (
+  <p className="flex-shrink-0 px-8 font-semibold">
+    Exame de vista gratuito{' '}
+    <span className="font-extrabold text-yellow-400">TERÇA-FEIRA 23/09 - Das 14:00 Às 20:00</span>
+  </p>
+);
+
 export function Marquee() {
-  // O conteúdo a ser repetido na faixa
-  const marqueeContent = (
-    <>
-      <p className="flex-shrink-0 px-4 font-semibold">
-        Exame de vista gratuito{' '}
-        <span className="font-extrabold text-yellow-400">SÁBADO 06/09 - Das 11:00 Às 16:00</span>
-      </p>
-      <Image
-        src="/images/logo.png"
-        alt="Logo Vizz"
-        width={48}
-        height={48}
-        className="mx-4 w-12"
-      />
-    </>
-  );
-
   return (
-    <div className="absolute bottom-0 left-0 z-20 w-full bg-gradient-to-r from-gray-800 to-gray-500 py-2 overflow-hidden">
+    // A altura foi reduzida trocando py-3 por py-2
+    <div className="absolute bottom-0 left-0 z-20 w-full bg-gray-800 py-2 overflow-hidden">
       <Link href="/agendamento" className="text-white no-underline">
-        <div className="flex whitespace-nowrap">
-          {/* O conteúdo é duplicado para criar o efeito de loop infinito */}
-          <div className="flex items-center animate-marquee">
-            {marqueeContent}
-            {marqueeContent}
-            {marqueeContent}
-            {marqueeContent}
-          </div>
-          <div className="flex items-center animate-marquee" aria-hidden="true">
-            {marqueeContent}
-            {marqueeContent}
-            {marqueeContent}
-            {marqueeContent}
-          </div>
-        </div>
+        <motion.div
+          className="flex whitespace-nowrap"
+          initial={{ x: '0%' }}
+          animate={{ x: '-100%' }}
+          transition={{
+            duration: 25,
+            ease: 'linear',
+            repeat: Infinity,
+          }}
+        >
+          {/* Renderiza o conteúdo várias vezes para o loop contínuo */}
+          <MarqueeContent />
+          <MarqueeContent />
+          <MarqueeContent />
+          <MarqueeContent />
+          <MarqueeContent />
+        </motion.div>
       </Link>
     </div>
   );

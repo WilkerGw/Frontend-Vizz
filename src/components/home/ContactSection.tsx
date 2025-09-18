@@ -1,131 +1,91 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
+
+const contactDetails = [
+  {
+    icon: <MapPin className="w-6 h-6 text-yellow-500" />,
+    title: "Nosso Endereço",
+    info: "Av. Do Oratório, 4869 - Jd. Guairaca, São Paulo - SP",
+  },
+  {
+    icon: <Phone className="w-6 h-6 text-yellow-500" />,
+    title: "Telefone",
+    info: "(11) 2362-8799",
+  },
+  {
+    icon: <Mail className="w-6 h-6 text-yellow-500" />,
+    title: "Email",
+    info: "oticasvizz@gmail.com",
+  },
+];
 
 export function ContactSection() {
-  // Estados para controlar os campos do formulário
-  const [fullName, setFullName] = useState("");
-  const [message, setMessage] = useState("");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!fullName.trim() || !message.trim()) {
-      alert("Por favor, preencha todos os campos.");
-      return;
-    }
-
-    // Número de telefone para onde a mensagem será enviada
-    const phoneNumber = "551123628799";
-
-    // Formata a mensagem para a URL do WhatsApp
-    const whatsappMessage = encodeURIComponent(
-      `Olá! Meu nome é ${fullName}.\n\nMensagem: ${message}`
-    );
-
-    // Cria e abre o link do WhatsApp
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
-    window.open(whatsappUrl, "_blank");
-  };
-
   return (
     <section
       id="contato"
-      className="flex flex-col items-center overflow-x-hidden w-full bg-gray-50 py-20 px-4"
+      className="w-full bg-white py-20 overflow-hidden"
     >
-      <div className="flex flex-col lg:w-[50%]">
-        {/* Coluna da Esquerda: Informações e Formulário */}
+      <div className="container mx-auto px-4">
+        {/* Cabeçalho da Seção */}
+        <div className="text-center mb-12">
+          <h2 className="text-sm font-bold text-yellow-500 uppercase tracking-widest">
+            Entre em Contato
+          </h2>
+          <h1 className="mt-2 text-3xl md:text-4xl font-semibold text-gray-800 tracking-tight">
+            Estamos Esperando por Você
+          </h1>
+          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+            Visite nossa loja para uma experiência de compra personalizada ou
+            entre em contato conosco através de nossos canais de atendimento.
+          </p>
+        </div>
 
-        {/* Coluna da Direita: Mapa */}
-        <h1 className="mb-4 text-xl font-extralight text-gray-500">
-          VISITE A LOJA FÍSICA
-        </h1>
-        <motion.div
-          className="w-full h-80 md:h-full rounded-lg overflow-hidden shadow-xl"
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex iten-center justify-center text-white bg-gray-500">
-            <p className="flex items-center gap-3">
-              <MapPin className="text-yellow-500" size={20} />
-              Av. Do Oratório, 4869 - Jd. Guairaca, São Paulo - SP
-            </p>
-          </div>
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.055898863266!2d-46.48839062378902!3d-23.53032746092042!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce66c3746e1135%3A0x633e8d97443a6773!2sAv.%20%C3%81guia%20de%20Haia%2C%202632%20-%20Jardim%20Soraia%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2003694-000!5e0!3m2!1spt-BR!2sbr!4v1721087857181!5m2!1spt-BR!2sbr"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen={true}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
-          <div className="flex iten-center justify-center text-white bg-gray-500 gap-10">
-            <p className="flex items-center gap-3">
-              <Phone className="text-yellow-500" size={20} />
-              (11) 2362-8799
-            </p>
-            <p className="flex items-center gap-3">
-              <Mail className="text-yellow-500" size={20} />
-              oticasvizz@gmail.com
-            </p>
-          </div>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-            <div>
-              <h1 className="mb-4 text-xl font-extralight text-gray-500">
-                FALE CONOSCO
-              </h1>
-              <label
-                htmlFor="fullName"
-                className="block text-sm text-gray-500"
-              >
-                Nome Completo
-              </label>
-              <input
-                type="text"
-                id="fullName"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                className="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
-                required
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="message"
-                className="block text-sm text-gray-500"
-              >
-                Mensagem
-              </label>
-              <textarea
-                id="message"
-                rows={4}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
-                required
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              className="w-full flex items-center justify-center gap-3 py-3 px-4 bg-green-500 text-white font-bold rounded-md shadow-lg hover:bg-green-600 transition-all duration-300 hover:scale-105"
-            >
-              <Send size={20} />
-              Enviar Mensagem via WhatsApp
-            </button>
-          </form>
-        </motion.div>
+        {/* Grid Principal */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Coluna de Informações */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="space-y-8"
+          >
+            {contactDetails.map((detail, index) => (
+              <div key={index} className="flex items-start gap-5">
+                <div className="flex-shrink-0 w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+                  {detail.icon}
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    {detail.title}
+                  </h3>
+                  <p className="text-gray-600">{detail.info}</p>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Coluna do Mapa */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            className="w-full h-96 rounded-lg overflow-hidden shadow-lg border border-gray-200"
+          >
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3656.323594851211!2d-46.55184138487384!3d-23.59253406871095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5c5c0b1f7b09%3A0x6a005d5b1e9b1e9a!2sAv.%20do%20Orat%C3%B3rio%2C%204869%20-%20Jardim%20Guairaca%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2003221-300!5e0!3m2!1spt-BR!2sbr!4v1663363345862!5m2!1spt-BR!2sbr"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen={true}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

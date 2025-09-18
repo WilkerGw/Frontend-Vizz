@@ -71,9 +71,9 @@ export function HeroSection() {
           <Image
             src="/images/logo-nova.png"
             alt="Logo Óticas Vizz"
-            width={200}
-            height={200}
-            className="w-30"
+            width={500}
+            height={500}
+            className="w-[20rem]"
           />
         </motion.div>
         <div className="flex flex-col items-center gap-3">

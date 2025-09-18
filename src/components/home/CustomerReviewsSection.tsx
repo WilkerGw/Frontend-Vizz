@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useRef, useEffect, useState, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
 
 type Review = {
-  id: number; name: string; comment: string; rating: number; initials: string;
+  id: number; 
+  name: string; 
+  comment: string; 
+  rating: number; 
+  initials: string;
 };
 
 const reviews: Review[] = [
@@ -21,92 +25,98 @@ const reviews: Review[] = [
     { id: 10, name: 'Paulo Brandão', comment: 'A loja tem produtos excelentes e o atendimento é ótimo!! Recomendo dmais!!', rating: 5, initials: 'PB' },
 ];
 
+const variants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+  center: {
+    zIndex: 1,
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => ({
+    zIndex: 0,
+    x: direction < 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+};
+
 export function CustomerReviewsSection() {
-  const reviewsContainerRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [[page, direction], setPage] = useState([0, 0]);
 
-  const checkScrollButtons = useCallback(() => {
-    const container = reviewsContainerRef.current;
-    if (!container) return;
-    const { scrollLeft, scrollWidth, clientWidth } = container;
-    const tolerance = 2;
-    setCanScrollLeft(scrollLeft > tolerance);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - tolerance);
-  }, []);
-
-  useEffect(() => {
-    const container = reviewsContainerRef.current;
-    if (!container) return;
-    container.addEventListener('scroll', checkScrollButtons, { passive: true });
-    window.addEventListener('resize', checkScrollButtons);
-    checkScrollButtons();
-    return () => {
-      container.removeEventListener('scroll', checkScrollButtons);
-      window.removeEventListener('resize', checkScrollButtons);
-    };
-  }, [checkScrollButtons]);
-
-  const scroll = (direction: 'left' | 'right') => {
-    const container = reviewsContainerRef.current;
-    if (container) {
-      const scrollAmount = container.clientWidth * 0.8;
-      container.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
-      setTimeout(checkScrollButtons, 500);
-    }
+  const paginate = (newDirection: number) => {
+    setPage([page + newDirection, newDirection]);
   };
 
+  const reviewIndex = Math.abs(page % reviews.length);
+
   return (
-    <section className="bg-white py-20 text-center">
-      <div className="relative max-w-6xl mx-auto">
-        {/* --- INÍCIO DA CORREÇÃO --- */}
-        {/* O padding foi movido para este container pai */}
-        <div className="px-8 md:px-0">
-          <div
-            ref={reviewsContainerRef}
-            // A classe 'px-8' foi removida daqui
-            className="flex overflow-x-auto snap-x snap-mandatory scroll-p-8 gap-8 py-8 no-scrollbar fade-mask-x"
-          >
-            {reviews.map((review) => (
+    <section className="bg-gray-50 w-full py-20 overflow-hidden">
+      <div className="container mx-auto px-4 text-center">
+        {/* Cabeçalho da Seção */}
+        <h2 className="text-sm font-bold text-yellow-500 uppercase tracking-widest">
+          Depoimentos
+        </h2>
+        <h1 className="mt-2 text-3xl md:text-4xl font-semibold text-gray-800 tracking-tight">
+          O que Nossos Clientes Dizem
+        </h1>
+        <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+          A satisfação de quem confia em nosso trabalho é a nossa maior inspiração.
+        </p>
+
+        {/* Carrossel de Depoimentos */}
+        <div className="relative mt-12 h-80 flex items-center justify-center">
+          <AnimatePresence initial={false} custom={direction}>
+            <motion.div
+              key={page}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: 'spring', stiffness: 300, damping: 30 },
+                opacity: { duration: 0.2 },
+              }}
+              className="absolute w-full max-w-2xl"
+            >
               <div
-                key={review.id}
-                className="relative flex flex-col text-left p-8 bg-gray-50 border border-gray-100 rounded-xl w-[90vw] max-w-[350px] md:w-[350px] flex-shrink-0 snap-start shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
+                className="relative flex flex-col text-left p-8 bg-white border border-gray-200 rounded-xl shadow-lg"
               >
-                <Quote className="absolute top-4 left-4 text-gray-200" size={48} />
+                <Quote className="absolute top-4 right-4 text-gray-100" size={48} />
                 <div className="relative z-10 flex text-yellow-400 mb-4">
-                  {[...Array(review.rating)].map((_, i) => <Star key={i} fill="currentColor" />)}
+                  {[...Array(reviews[reviewIndex].rating)].map((_, i) => <Star key={i} fill="currentColor" />)}
                 </div>
-                <p className="relative z-10 text-gray-600 italic line-clamp-4 flex-grow mb-6">
-                  "{review.comment}"
+                <p className="relative z-10 text-gray-600 italic line-clamp-4 flex-grow mb-6 h-20">
+                  "{reviews[reviewIndex].comment}"
                 </p>
-                <div className="relative z-10 flex items-center gap-4 mt-auto">
-                  <div className="w-12 h-12 rounded-full bg-yellow-400 text-gray-500 flex items-center justify-center font-bold">
-                    {review.initials}
+                <div className="relative z-10 flex items-center gap-4 mt-auto border-t border-gray-100 pt-4">
+                  <div className="w-12 h-12 rounded-full bg-gray-800 text-white flex items-center justify-center font-bold text-lg">
+                    {reviews[reviewIndex].initials}
                   </div>
-                  <span className="font-semibold text-gray-500">{review.name}</span>
+                  <span className="font-semibold text-gray-700">{reviews[reviewIndex].name}</span>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-        {/* --- FIM DA CORREÇÃO --- */}
+            </motion.div>
+          </AnimatePresence>
 
-        <button
-          onClick={() => scroll('left')}
-          disabled={!canScrollLeft}
-          aria-label="Anterior"
-          className="absolute top-1/2 -translate-y-1/2 left-0 z-20 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 transition-all duration-300 hover:bg-yellow-400 hover:text-gray-800 disabled:opacity-30 disabled:cursor-not-allowed hidden md:flex"
-        >
-          <ChevronLeft />
-        </button>
-        <button
-          onClick={() => scroll('right')}
-          disabled={!canScrollRight}
-          aria-label="Próximo"
-          className="absolute top-1/2 -translate-y-1/2 right-0 z-20 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 transition-all duration-300 hover:bg-yellow-400 hover:text-gray-800 disabled:opacity-30 disabled:cursor-not-allowed hidden md:flex"
-        >
-          <ChevronRight />
-        </button>
+          {/* Botões de Navegação */}
+          <button
+            onClick={() => paginate(-1)}
+            aria-label="Anterior"
+            className="absolute top-1/2 -translate-y-1/2 left-0 z-20 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 transition-all duration-300 hover:bg-gray-800 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            <ChevronLeft />
+          </button>
+          <button
+            onClick={() => paginate(1)}
+            aria-label="Próximo"
+            className="absolute top-1/2 -translate-y-1/2 right-0 z-20 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 transition-all duration-300 hover:bg-gray-800 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            <ChevronRight />
+          </button>
+        </div>
       </div>
     </section>
   );

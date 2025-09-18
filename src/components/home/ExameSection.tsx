@@ -1,91 +1,92 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { Eye, Wrench, UserCheck } from "lucide-react";
-import React from "react";
 import Link from "next/link";
-import { Calendar } from "lucide-react";
+import { motion } from "framer-motion";
+import { Award, Calendar, CheckCircle, Eye } from "lucide-react";
 import { Marquee } from "../ui/Marquee";
 
-type Service = {
-  icon?: React.ReactNode;
-  title: string;
-  highlight: string;
-  description?: string;
-  images?: string[];
-};
-
-const servicesData: Service[] = [
+const benefits = [
   {
-    icon: <Eye size={48} />,
-    title: "Exame de Vista",
-    highlight: "Gratuito",
-    description:
-      "Cuidamos da sua saúde ocular com precisão, usando o que há de mais moderno em aparelhos optométricos.",
+    icon: <Eye size={24} className="text-yellow-400" />,
+    text: "Exame de vista completo e gratuito.",
   },
   {
-    icon: <Wrench size={48} />,
-    title: "Óculos de Grau",
-    highlight: "Personalizados",
-    description:
-      "Criamos óculos sob medida para você! Escolha a armação perfeita e conte com lentes adaptadas às suas necessidades.",
+    icon: <CheckCircle size={24} className="text-yellow-400" />,
+    text: "Tecnologia de ponta para um diagnóstico preciso.",
   },
   {
-    icon: <UserCheck size={48} />,
-    title: "Consultoria com",
-    highlight: "Especialistas",
-    description:
-      "Nossa equipe de Optometristas está pronta para te ajudar a escolher o melhor óculos para seu estilo e conforto.",
-  },
-  {
-    title: "Trabalhamos com as",
-    highlight: "Melhores Marcas",
-    images: [
-      "/images/parceiros/hb.png",
-      "/images/parceiros/hoya.png",
-      "/images/parceiros/varilux-logo-0.png",
-      "/images/parceiros/zeiss.png",
-    ],
+    icon: <Award size={24} className="text-yellow-400" />,
+    text: "Na compra das lentes, a armação é por nossa conta!",
   },
 ];
 
 export function FeaturesSection() {
   return (
-    <section
-      id="servicos"
-      className="relative flex flex-col justify-center items-center h-auto overflow-hidden py-8 px-4"
-    >
-      <div className="flex flex-col items-center text-center px-2 mb-8 gap-2">
-        <h1 className="text-xl text-gray-500">
-          AGENDE SEU EXAME GRATUITO E GANHE UM BRINDE EXCLUSIVO
-        </h1>
-        <p className="text-gray-500/90">
-          Clientes agendados que adquirirem as lentes ganham a armação de brinde.
-        </p>
+    <section id="exame" className="relative w-full bg-white overflow-hidden pt-8">
+      <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* Coluna da Imagem */}
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="relative flex justify-center items-center"
+        >
+          <div className="absolute w-full h-full bg-gray-100 rounded-full blur-3xl -z-10"></div>
+          <Image
+            src="/images/optometrista.png"
+            alt="Optometrista profissional da Óticas Vizz"
+            width={500}
+            height={700}
+            className="w-full max-w-sm lg:max-w-md object-contain"
+          />
+        </motion.div>
+
+        {/* Coluna de Texto */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+          className="text-center lg:text-left"
+        >
+          <h2 className="text-sm font-bold text-yellow-500 uppercase tracking-widest">
+            Sua Visão em Foco
+          </h2>
+          <h1 className="mt-2 text-3xl md:text-4xl font-semibold text-gray-800 tracking-tight">
+            Cuidado completo e gratuito para seus olhos.
+          </h1>
+          <p className="mt-4 text-gray-600 max-w-xl mx-auto lg:mx-0">
+            Na Óticas Vizz, sua saúde ocular é nossa prioridade. Oferecemos um
+            exame de vista completo, realizado por especialistas com
+            equipamentos de última geração, sem custo algum.
+          </p>
+
+          <ul className="mt-8 space-y-4">
+            {benefits.map((benefit, index) => (
+              <li
+                key={index}
+                className="flex items-center gap-3 justify-center lg:justify-start"
+              >
+                {benefit.icon}
+                <span className="text-gray-700">{benefit.text}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-10">
+            <Link
+              href="/agendamento"
+              className="group relative inline-flex items-center gap-4 justify-center px-8 py-4 rounded-xl bg-gradient-to-r from-gray-800 to-gray-600 text-white font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl overflow-hidden"
+            >
+              <div className="absolute top-0 -left-full h-full w-full skew-x-[-25deg] bg-white/20 transition-all duration-700 group-hover:left-full"></div>
+              <Calendar size={24} />
+              <span>Agende seu Exame Gratuito</span>
+            </Link>
+          </div>
+        </motion.div>
       </div>
-      <Link
-        href="/agendamento"
-        className="group relative flex items-center gap-4 w-full max-w-sm md:w-auto justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-gray-800 to-gray-500 text-white font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl overflow-x-hidden mb-10"
-      >
-        <div className="absolute top-0 -left-full h-full w-3/4 skew-x-[-25deg] bg-white/20 transition-all duration-700 group-hover:left-full"></div>
-        <Calendar size={24} className="text-yellow-400" />
-        <div className="flex flex-col items-start text-left">
-          <span className="text-base leading-tight">
-            Agende seu exame gratuito
-          </span>
-          <small className="text-xs font-normal opacity-90">
-            Vagas LIMITADAS!
-          </small>
-        </div>
-      </Link>
-      <Image
-        src="/images/optometrista.png"
-        alt="Parceiros"
-        width={600}
-        height={600}
-        className="bottom-0"
-      ></Image>
       <Marquee />
     </section>
   );
