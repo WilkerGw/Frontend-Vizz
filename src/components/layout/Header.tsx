@@ -6,7 +6,23 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Estrutura de dados do menu atualizada com "Lentes de Contato"
+// --- CORREÇÃO APLICADA AQUI ---
+// Definindo tipos explícitos para os links e imagens do menu
+type SubmenuLink = {
+  label: string;
+  href: string;
+  target?: string; // A propriedade 'target' agora é opcional
+};
+
+type SubmenuImage = {
+  src: string;
+  alt: string;
+  href: string;
+  target?: string; // A propriedade 'target' agora é opcional
+};
+// --- FIM DA CORREÇÃO ---
+
+// Estrutura de dados do menu atualizada
 const menuItems = [
   {
     label: "Óculos de Grau",
@@ -16,20 +32,24 @@ const menuItems = [
         {
           label: "Quadrados",
           href: "https://oticasvizz.lojavirtualnuvem.com.br/armacoes/armacoes-quadradas/",
+          target: "_blank",
         },
         {
           label: "Arredondados",
           href: "https://oticasvizz.lojavirtualnuvem.com.br/armacoes/armacoes-arredondadas/",
+          target: "_blank",
         },
         {
           label: "Meio Aro",
           href: "https://oticasvizz.lojavirtualnuvem.com.br/armacoes/balgriff/",
+          target: "_blank",
         },
         {
           label: "Balgriff (3 peças)",
           href: "https://oticasvizz.lojavirtualnuvem.com.br/armacoes/balgriff/",
+          target: "_blank",
         },
-      ],
+      ] as SubmenuLink[], // Aplicando o tipo
       images: [
         {
           src: "/images/menu-imgs/grau.png",
@@ -37,7 +57,7 @@ const menuItems = [
           href: "https://oticasvizz.lojavirtualnuvem.com.br/armacoes/",
           target: "_blank",
         },
-      ],
+      ] as SubmenuImage[], // Aplicando o tipo
     },
   },
   {
@@ -48,7 +68,7 @@ const menuItems = [
         { label: "Masculino", href: "https://oticasvizz.lojavirtualnuvem.com.br/oculos-de-sol/masculino/", target: "_blank" },
         { label: "Feminino", href: "https://oticasvizz.lojavirtualnuvem.com.br/oculos-de-sol/feminino/", target: "_blank" },
         { label: "Unissex", href: "https://oticasvizz.lojavirtualnuvem.com.br/oculos-de-sol/unissex/", target: "_blank" },
-      ],
+      ] as SubmenuLink[], // Aplicando o tipo
       images: [
         {
           src: "/images/menu-imgs/sol.png",
@@ -56,7 +76,7 @@ const menuItems = [
           href: "https://oticasvizz.lojavirtualnuvem.com.br/oculos-de-sol/",
           target: "_blank",
         },
-      ],
+      ] as SubmenuImage[], // Aplicando o tipo
     },
   },
   {
@@ -70,14 +90,14 @@ const menuItems = [
       links: [
         { label: "Johnson & Johnson", href: "https://www.acuvue.com.br/", target: "_blank" },
         { label: "Coopervision", href: "https://coopervision.com.br/", target: "_blank" },
-      ],
+      ] as SubmenuLink[], // Aplicando o tipo
       images: [
         {
-          src: "/images/menu-imgs/3.Webp", // Usando uma imagem existente
+          src: "/images/menu-imgs/3.Webp",
           alt: "Lentes de Contato",
           href: "/#",
         },
-      ],
+      ] as SubmenuImage[], // Aplicando o tipo
     },
   },
   {
@@ -194,7 +214,6 @@ export function Header() {
                       .find((item) => item.label === activeSubmenu)
                       ?.submenu?.links.map((link) => (
                         <li key={link.label}>
-                          {/* --- ALTERAÇÃO APLICADA AQUI --- */}
                           <Link
                             href={link.href}
                             className="relative group text-gray-500 hover:text-yellow-500 transition-colors duration-200 text-lg whitespace-nowrap"
@@ -202,7 +221,6 @@ export function Header() {
                             rel={link.target ? "noopener noreferrer" : undefined}
                           >
                             <span>{link.label}</span>
-                            {/* Efeito de sublinhado animado */}
                             <span className="absolute bottom-0 left-0 w-full h-[1px] bg-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-center"></span>
                           </Link>
                         </li>
