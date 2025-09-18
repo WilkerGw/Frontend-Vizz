@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight, ShoppingCart } from 'lucide-react';
-import { Product } from '@/types';
+import { Product } from '../../types';
 import { motion } from 'framer-motion';
 
 interface ProdutoCardProps {
