@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+// CORREÇÃO: Importando o tipo 'Variants' do framer-motion
+import { motion, Variants } from "framer-motion";
 import { Eye, Wrench, UserCheck } from "lucide-react";
 
 // Array com os dados dos serviços para facilitar a manutenção
@@ -23,8 +24,8 @@ const servicos = [
   },
 ];
 
-// Variantes de animação
-const containerVariants = {
+// CORREÇÃO: Aplicando o tipo 'Variants'
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -32,7 +33,8 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+// CORREÇÃO: Aplicando o tipo 'Variants'
+const itemVariants: Variants = {
   hidden: { y: 20, opacity: 0 },
   visible: {
     y: 0,
