@@ -25,24 +25,6 @@ export function FeaturesSection() {
   return (
     <section id="exame" className="relative w-full bg-white overflow-hidden pt-8">
       <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        {/* Coluna da Imagem */}
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="relative flex justify-center items-center"
-        >
-          <div className="absolute w-full h-full bg-gray-100 rounded-full blur-3xl -z-10"></div>
-          <Image
-            src="/images/optometrista.png"
-            alt="Optometrista profissional da Óticas Vizz"
-            width={500}
-            height={700}
-            className="w-full max-w-sm lg:max-w-md object-contain"
-          />
-        </motion.div>
-
         {/* Coluna de Texto */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
@@ -63,14 +45,14 @@ export function FeaturesSection() {
             equipamentos de última geração, sem custo algum.
           </p>
 
-          <ul className="mt-8 space-y-4">
+          <ul className="mt-8 space-y-4 flex flex-col items-start">
             {benefits.map((benefit, index) => (
               <li
                 key={index}
                 className="flex items-center gap-3 justify-center lg:justify-start"
               >
                 {benefit.icon}
-                <span className="text-gray-700">{benefit.text}</span>
+                <span className="text-gray-700 text-start">{benefit.text}</span>
               </li>
             ))}
           </ul>
@@ -85,6 +67,23 @@ export function FeaturesSection() {
               <span>Agende seu Exame Gratuito</span>
             </Link>
           </div>
+        </motion.div>
+        {/* Coluna da Imagem */}
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="relative flex justify-center items-center"
+        >
+          <div className="absolute w-full h-full bg-gray-100 rounded-full blur-3xl -z-10"></div>
+          <Image
+            src="/images/optometrista.png"
+            alt="Optometrista profissional da Óticas Vizz"
+            width={500}
+            height={700}
+            className="w-full max-w-sm lg:max-w-md object-contain"
+          />
         </motion.div>
       </div>
       <Marquee />

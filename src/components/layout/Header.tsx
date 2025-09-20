@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { Menu, Target, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 // --- CORREÇÃO APLICADA AQUI ---
@@ -25,8 +25,9 @@ type SubmenuImage = {
 // Estrutura de dados do menu atualizada
 const menuItems = [
   {
-    label: "Óculos de Grau",
-    href: "/#",
+    label: "Armações",
+    href: "https://oticasvizz.lojavirtualnuvem.com.br/armacoes/",
+    target: "_blank",
     submenu: {
       links: [
         {
@@ -62,18 +63,36 @@ const menuItems = [
   },
   {
     label: "Óculos de Sol",
-    href: "/#",
+    href: "https://oticasvizz.lojavirtualnuvem.com.br/oculos-de-sol/",
+    target: "_blank",
     submenu: {
       links: [
-        { label: "Masculino", href: "https://oticasvizz.lojavirtualnuvem.com.br/oculos-de-sol/masculino/", target: "_blank" },
-        { label: "Feminino", href: "https://oticasvizz.lojavirtualnuvem.com.br/oculos-de-sol/feminino/", target: "_blank" },
-        { label: "Unissex", href: "https://oticasvizz.lojavirtualnuvem.com.br/oculos-de-sol/unissex/", target: "_blank" },
+        {
+          label: "Quadrados",
+          href: "https://oticasvizz.lojavirtualnuvem.com.br/armacoes/armacoes-quadradas/",
+          target: "_blank",
+        },
+        {
+          label: "Arredondados",
+          href: "https://oticasvizz.lojavirtualnuvem.com.br/armacoes/armacoes-arredondadas/",
+          target: "_blank",
+        },
+        {
+          label: "Meio Aro",
+          href: "https://oticasvizz.lojavirtualnuvem.com.br/armacoes/balgriff/",
+          target: "_blank",
+        },
+        {
+          label: "Balgriff (3 peças)",
+          href: "https://oticasvizz.lojavirtualnuvem.com.br/armacoes/balgriff/",
+          target: "_blank",
+        },
       ] as SubmenuLink[], // Aplicando o tipo
       images: [
         {
           src: "/images/menu-imgs/sol.png",
-          alt: "Óculos de Sol",
-          href: "https://oticasvizz.lojavirtualnuvem.com.br/oculos-de-sol/",
+          alt: "Óculos de Grau",
+          href: "https://oticasvizz.lojavirtualnuvem.com.br/armacoes/",
           target: "_blank",
         },
       ] as SubmenuImage[], // Aplicando o tipo
@@ -81,19 +100,23 @@ const menuItems = [
   },
   {
     label: "Lentes",
-    href: "/#lentes",
-  },
-  {
-    label: "Lentes de Contato",
     href: "/#",
     submenu: {
       links: [
-        { label: "Johnson & Johnson", href: "https://www.acuvue.com.br/", target: "_blank" },
-        { label: "Coopervision", href: "https://coopervision.com.br/", target: "_blank" },
+        {
+          label: "Multifocais",
+          href: "https://www.acuvue.com.br/",
+          target: "_blank",
+        },
+        {
+          label: "Visão Simples",
+          href: "https://coopervision.com.br/",
+          target: "_blank",
+        },
       ] as SubmenuLink[], // Aplicando o tipo
       images: [
         {
-          src: "/images/menu-imgs/3.Webp",
+          src: "/images/menu-imgs/lente.png",
           alt: "Lentes de Contato",
           href: "/#",
         },
@@ -218,7 +241,9 @@ export function Header() {
                             href={link.href}
                             className="relative group text-gray-500 hover:text-yellow-500 transition-colors duration-200 text-lg whitespace-nowrap"
                             target={link.target}
-                            rel={link.target ? "noopener noreferrer" : undefined}
+                            rel={
+                              link.target ? "noopener noreferrer" : undefined
+                            }
                           >
                             <span>{link.label}</span>
                             <span className="absolute bottom-0 left-0 w-full h-[1px] bg-yellow-400 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-center"></span>

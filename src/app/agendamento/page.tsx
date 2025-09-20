@@ -4,7 +4,7 @@ import { Clock, Gift, Award } from "lucide-react";
 
 export default function AgendamentoPage() {
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-gray-50">
+    <div className="flex flex-col md:flex-row min-h-screen py-16 md:py-2 bg-gray-50">
       {/* Coluna da Esquerda: Informações e Imagem */}
       <div className="w-full md:w-1/2 bg-gray-100 p-8 md:p-12 flex flex-col justify-center items-center md:items-start text-center md:text-left">
         <div className="max-w-md">
@@ -49,19 +49,10 @@ export default function AgendamentoPage() {
             </div>
           </div>
         </div>
-        <div className="mt-auto pt-8 w-full flex justify-center">
-            <Image
-                src="/images/homem-sentado.png"
-                alt="Homem usando um laptop"
-                width={400}
-                height={400}
-                className="w-full max-w-sm"
-            />
-        </div>
       </div>
 
       {/* Coluna da Direita: Formulário */}
-      <div className="w-full md:w-1/2 p-8 md:p-12 flex items-center justify-center">
+      <div className="w-full md:w-1/2 p-8 md:p-12 flex items-center justify-center bg-gray-100">
         <AppointmentForm />
       </div>
     </div>

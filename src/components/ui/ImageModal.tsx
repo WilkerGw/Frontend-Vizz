@@ -1,5 +1,3 @@
-// src/components/ui/ImageModal.tsx
-
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
@@ -29,27 +27,30 @@ export function ImageModal({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center"
+        // Adicionado padding para afastar a imagem das bordas no mobile
+        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
         onClick={onClose}
       >
-        {/* Botão de Fechar */}
+        {/* --- CORREÇÃO APLICADA AQUI --- */}
+        {/* Botão de Fechar com posicionamento ajustado */}
         <motion.button
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1, transition: { delay: 0.2 } }}
           exit={{ scale: 0, opacity: 0 }}
-          className="absolute top-4 right-4 text-white bg-black/50 rounded-full p-2 hover:bg-black/80 transition-colors"
+          className="absolute top-3 right-3 md:top-4 md:right-4 text-white bg-black/50 rounded-full p-2 hover:bg-black/80 transition-colors z-50"
           onClick={onClose}
           aria-label="Fechar modal"
         >
           <X size={28} />
         </motion.button>
 
-        {/* Botão Anterior */}
+        {/* --- CORREÇÃO APLICADA AQUI --- */}
+        {/* Botão Anterior com posicionamento ajustado */}
         <motion.button
           initial={{ x: -50, opacity: 0 }}
           animate={{ x: 0, opacity: 1, transition: { delay: 0.2 } }}
           exit={{ x: -50, opacity: 0 }}
-          className="absolute left-4 text-white bg-black/50 rounded-full p-2 hover:bg-black/80 transition-colors"
+          className="absolute left-1 md:left-4 text-white bg-black/50 rounded-full p-2 hover:bg-black/80 transition-colors z-50"
           onClick={(e) => {
             e.stopPropagation();
             onPrev();
@@ -66,7 +67,8 @@ export function ImageModal({
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.8, opacity: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="relative w-[90vw] h-[90vh] max-w-4xl max-h-4xl"
+          // A imagem agora ocupa o espaço dentro do padding
+          className="relative w-full h-full max-w-4xl max-h-4xl"
           onClick={(e) => e.stopPropagation()}
         >
           <Image
@@ -78,12 +80,13 @@ export function ImageModal({
           />
         </motion.div>
 
-        {/* Botão Próximo */}
+        {/* --- CORREÇÃO APLICADA AQUI --- */}
+        {/* Botão Próximo com posicionamento ajustado */}
         <motion.button
           initial={{ x: 50, opacity: 0 }}
           animate={{ x: 0, opacity: 1, transition: { delay: 0.2 } }}
           exit={{ x: 50, opacity: 0 }}
-          className="absolute right-4 text-white bg-black/50 rounded-full p-2 hover:bg-black/80 transition-colors"
+          className="absolute right-1 md:right-4 text-white bg-black/50 rounded-full p-2 hover:bg-black/80 transition-colors z-50"
           onClick={(e) => {
             e.stopPropagation();
             onNext();

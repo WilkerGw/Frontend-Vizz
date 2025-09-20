@@ -1,4 +1,3 @@
-import { Chatbot } from "../components/chat/Chatbot";
 import { ContactSection } from "../components/home/ContactSection";
 import { CustomerReviewsSection } from "../components/home/CustomerReviewsSection";
 import Destaque from "../components/home/Destaque";
@@ -22,8 +21,6 @@ export default function Home() {
       />
       <CustomerReviewsSection />
       <ContactSection />
-      <Chatbot />
-
     </>
   );
 }

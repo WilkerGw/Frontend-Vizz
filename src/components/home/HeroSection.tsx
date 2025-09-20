@@ -58,7 +58,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative flex flex-col lg:items-start lg:justify-center min-h-screen p-4 text-gray-100 overflow-hidden">
+    <section className="relative flex flex-col lg:items-start lg:justify-center min-h-screen px-4 py-16 text-gray-100 overflow-hidden">
       <OverlayFilter />
       <div className="relative z-10 flex flex-col items-center text-center lg:ml-20">
         {/* Animação de fade-in para o logo */}
@@ -73,7 +73,7 @@ export function HeroSection() {
             alt="Logo Óticas Vizz"
             width={500}
             height={500}
-            className="w-[20rem]"
+            className="w-[13rem]"
           />
         </motion.div>
         <div className="flex flex-col items-center gap-3">
