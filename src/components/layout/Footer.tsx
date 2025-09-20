@@ -13,8 +13,8 @@ const navLinks = [
 ];
 
 const socialLinks = [
-  { name: 'Instagram', href: 'https://www.instagram.com/oticasvizz/', icon: Instagram },
-  { name: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61565492837095', icon: Facebook },
+  { name: 'Instagram', href: 'https://www.instagram.com/vizzotica/', icon: Instagram },
+  { name: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61580033646888', icon: Facebook },
   { name: 'WhatsApp', href: 'https://wa.me/551123628799', icon: MessageCircle },
 ];
 

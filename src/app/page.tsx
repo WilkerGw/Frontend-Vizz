@@ -3,6 +3,7 @@ import { CustomerReviewsSection } from "../components/home/CustomerReviewsSectio
 import Destaque from "../components/home/Destaque";
 import { FeaturesSection } from "../components/home/ExameSection";
 import { HeroSection } from "../components/home/HeroSection";
+import { LensTypesSection } from "../components/home/LensTypesSection";
 import LentesFotossensiveisSection from "../components/home/LentesFotossensiveisSection";
 import ProdutosSection from "../components/home/ProdutosSection";
 import ServicosSection from "../components/home/ServicosSection";
@@ -15,6 +16,7 @@ export default function Home() {
       <Destaque />
       <ServicosSection />
       <ProdutosSection />
+      <LensTypesSection />
       <LentesFotossensiveisSection
         imagemAntes="/images/fotossensi.png"
         imagemDepois="/images/fotossensi2.png"

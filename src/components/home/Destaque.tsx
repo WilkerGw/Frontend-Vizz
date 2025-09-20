@@ -51,7 +51,7 @@ const itemVariants = {
 
 const Destaque = () => {
   return (
-    <section id="lentes" className="w-full bg-gray-50 py-20 overflow-hidden">
+    <section id="destaque" className="w-full bg-gray-50 py-20 overflow-hidden">
       <div className="container mx-auto px-4 flex flex-col items-center">
         {/* Coluna de Conteúdo e Cards - Agora Centralizada */}
         <div className="text-center max-w-4xl">

@@ -19,12 +19,12 @@ export function HeroSection() {
   const socialLinks = [
     {
       name: "Instagram",
-      href: "https://www.instagram.com/oticasvizz/",
+      href: "https://www.instagram.com/vizzotica/",
       icon: Instagram,
     },
     {
       name: "Facebook",
-      href: "https://www.facebook.com/profile.php?id=61565492837095",
+      href: "https://www.facebook.com/profile.php?id=61580033646888",
       icon: Facebook,
     },
     {

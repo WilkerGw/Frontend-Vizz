@@ -100,17 +100,17 @@ const menuItems = [
   },
   {
     label: "Lentes",
-    href: "/#",
+    href: "#lentes",
     submenu: {
       links: [
         {
           label: "Multifocais",
-          href: "https://www.acuvue.com.br/",
+          href: "#lentes",
           target: "_blank",
         },
         {
           label: "Visão Simples",
-          href: "https://coopervision.com.br/",
+          href: "#lentes",
           target: "_blank",
         },
       ] as SubmenuLink[], // Aplicando o tipo
