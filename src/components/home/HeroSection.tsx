@@ -62,7 +62,7 @@ export function HeroSection() {
     <section className="relative flex flex-col lg:flex-row itens-center justify-center min-h-screen px-4 pt-16 text-gray-100 overflow-hidden">
       <OverlayFilter />
       <VagasPopup />
-      <div className="absolute top-14 left-1/2 -translate-x-1/2 z-10 lg:top-1/2 lg:left-0 lg:-translate-y-1/2 lg:translate-x-0 flex flex-col items-center justify-center text-center w-full lg:w-[auto] lg:pl-4 pt-20 lg:pt-0">
+      <div className="absolute top-14 left-1/2 -translate-x-1/2 z-10 lg:top-1/2 lg:left-0 lg:-translate-y-1/2 lg:translate-x-0 flex flex-col items-center justify-center text-center w-full lg:w-[auto] lg:pl-4 pt-20 lg:pt-0 lg:max-w-[1080px]">
         {/* Animação de fade-in para o logo */}
         <motion.div
           className="pb-2"
