@@ -60,7 +60,7 @@ const VagasPopup: React.FC = () => {
           text-white font-semibold transition-all duration-500
           ${contagemAtiva ? 'text-2xl' : 'text-base'}
         `}>
-          {contagemAtiva ? 'Restam' : 'Últimas'}
+          {contagemAtiva ? 'Restam' : 'Restam'}
           <span className={`
             mx-2 font-bold transition-all duration-500
             ${contagemAtiva ? 'text-5xl text-yellow-400' : 'text-lg text-yellow-400'}
