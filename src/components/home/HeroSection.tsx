@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion"; // Importar o motion
 import { OverlayFilter } from "../ui/OverlayFilter";
-import { Marquee } from "../ui/Marquee";
 import VagasPopup from "./VagasPopup";
 
 export function HeroSection() {
@@ -59,103 +58,99 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative flex flex-col lg:flex-row itens-center justify-center min-h-screen px-4 pt-16 text-gray-100 overflow-hidden">
+    <section className="relative flex flex-col lg:flex-row itens-center justify-center min-h-screen px-4 pt-16 text-gray-100 overflow-hidden max-w-[1600px] mx-auto">
       <OverlayFilter />
       <VagasPopup />
-      <div className="max-w-[700px]">
-        <div className="absolute top-14 left-1/2 -translate-x-1/2 z-10 lg:top-1/2 lg:left-0 lg:-translate-y-1/2 lg:translate-x-0 flex flex-col items-center justify-center text-center w-full lg:w-[auto] lg:pl-4 pt-20 lg:pt-0">
-          {/* Animação de fade-in para o logo */}
-          <motion.div
-            className="pb-2"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            <Image
-              src="/images/logo-nova.png"
-              alt="Logo Óticas Vizz"
-              width={500}
-              height={500}
-              className="w-[10rem]"
-            />
-          </motion.div>
-          <div className="flex flex-col items-center gap-3">
-            {/* Animação dos ícones sociais */}
-            <motion.div
-              className="flex justify-center gap-8 pb-2"
-              variants={socialListVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.name}
-                  className="text-gray-500 transition-all duration-300 ease-in-out hover:text-gray-600 hover:scale-110"
-                  variants={socialItemVariants} // Aplica a variante de item
-                >
-                  <social.icon size={28} />
-                </motion.a>
-              ))}
-            </motion.div>
-          </div>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mt-4">
-            <Link
-              href="/agendamento"
-              className="group relative flex items-center gap-4 w-full max-w-sm md:w-auto justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-gray-800 to-gray-500 text-white font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl overflow-x-hidden"
-            >
-              <div className="absolute top-0 -left-full h-full w-3/4 skew-x-[-25deg] bg-white/20 transition-all duration-700 group-hover:left-full"></div>
-              <Calendar size={24} className="text-yellow-400" />
-              <div className="flex flex-col items-start text-left">
-                <span className="text-base leading-tight">
-                  Agende seu exame gratuito
-                </span>
-                <small className="text-xs font-normal opacity-90">
-                  Vagas LIMITADAS!
-                </small>
-              </div>
-            </Link>
-            <a
-              href="https://oticasvizz.lojavirtualnuvem.com.br/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-4 w-full max-w-sm md:w-auto justify-center px-6 py-3 rounded-xl border-2 border-gray-500/20 text-gray-500 font-semibold shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:bg-gray-400/20 hover:border-gray-300 "
-            >
-              <ShoppingCart size={24} className="text-yellow-400" />
-              <div className="flex flex-col items-start text-left">
-                <span className="text-base leading-tight">
-                  Visite nossa{" "}
-                  <span className="text-yellow-400">Loja Virtual</span>
-                </span>
-                <small className="text-xs font-normal opacity-90">
-                  Compre Online
-                </small>
-              </div>
-            </a>
-          </div>
-        </div>
-        
-        {/* Animação da imagem da modelo (Desktop) */}
+      <div className="absolute top-14 left-1/2 -translate-x-1/2 z-10 lg:top-1/2 lg:left-0 lg:-translate-y-1/2 lg:translate-x-0 flex flex-col items-center justify-center text-center w-full lg:w-[auto] lg:pl-4 pt-20 lg:pt-0">
+        {/* Animação de fade-in para o logo */}
         <motion.div
-          initial={{ x: "100%" }} // Começa fora da tela, à direita
-          animate={{ x: 0 }} // Anima para a posição original
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="absolute bottom-0 right-0 flex justify-center items-center z-0"
+          className="pb-2"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
         >
           <Image
-            src="/images/familia.png"
-            alt="Hero Image"
-            width={1000}
-            height={1000}
-            className="w-[60rem] lg:w-[50rem]"
+            src="/images/logo-nova.png"
+            alt="Logo Óticas Vizz"
+            width={500}
+            height={500}
+            className="w-[10rem]"
           />
         </motion.div>
+        <div className="flex flex-col items-center gap-3">
+          {/* Animação dos ícones sociais */}
+          <motion.div
+            className="flex justify-center gap-8 pb-2"
+            variants={socialListVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {socialLinks.map((social) => (
+              <motion.a
+                key={social.name}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.name}
+                className="text-gray-500 transition-all duration-300 ease-in-out hover:text-gray-600 hover:scale-110"
+                variants={socialItemVariants} // Aplica a variante de item
+              >
+                <social.icon size={28} />
+              </motion.a>
+            ))}
+          </motion.div>
+        </div>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mt-4">
+          <Link
+            href="/agendamento"
+            className="group relative flex items-center gap-4 w-full max-w-sm md:w-auto justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-gray-800 to-gray-500 text-white font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl overflow-x-hidden"
+          >
+            <div className="absolute top-0 -left-full h-full w-3/4 skew-x-[-25deg] bg-white/20 transition-all duration-700 group-hover:left-full"></div>
+            <Calendar size={24} className="text-yellow-400" />
+            <div className="flex flex-col items-start text-left">
+              <span className="text-base leading-tight">
+                Agende seu exame gratuito
+              </span>
+              <small className="text-xs font-normal opacity-90">
+                Vagas LIMITADAS!
+              </small>
+            </div>
+          </Link>
+          <a
+            href="https://oticasvizz.lojavirtualnuvem.com.br/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-4 w-full max-w-sm md:w-auto justify-center px-6 py-3 rounded-xl border-2 border-gray-500/20 text-gray-500 font-semibold shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:bg-gray-400/20 hover:border-gray-300 "
+          >
+            <ShoppingCart size={24} className="text-yellow-400" />
+            <div className="flex flex-col items-start text-left">
+              <span className="text-base leading-tight">
+                Visite nossa{" "}
+                <span className="text-yellow-400">Loja Virtual</span>
+              </span>
+              <small className="text-xs font-normal opacity-90">
+                Compre Online
+              </small>
+            </div>
+          </a>
+        </div>
       </div>
 
-      <Marquee />
+      {/* Animação da imagem da modelo (Desktop) */}
+      <motion.div
+        initial={{ x: "100%" }} // Começa fora da tela, à direita
+        animate={{ x: 0 }} // Anima para a posição original
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="absolute bottom-0 right-0 flex justify-center items-center z-0"
+      >
+        <Image
+          src="/images/familia.png"
+          alt="Hero Image"
+          width={1000}
+          height={1000}
+          className="w-[60rem] lg:w-[50rem]"
+        />
+      </motion.div>
     </section>
   );
 }

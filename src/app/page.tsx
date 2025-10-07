@@ -7,11 +7,13 @@ import { LensTypesSection } from "../components/home/LensTypesSection";
 import LentesFotossensiveisSection from "../components/home/LentesFotossensiveisSection";
 import ProdutosSection from "../components/home/ProdutosSection";
 import ServicosSection from "../components/home/ServicosSection";
+import { Marquee } from "../components/ui/Marquee";
 
 export default function Home() {
   return (
     <>
       <HeroSection />
+      <Marquee />
       <FeaturesSection />
       <Destaque />
       <ServicosSection />
