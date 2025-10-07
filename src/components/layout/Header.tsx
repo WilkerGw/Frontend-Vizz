@@ -169,7 +169,7 @@ export function Header() {
   return (
     <header
       ref={menuRef}
-      className="fixed top-0 left-0 w-full z-50 bg-white shadow-md"
+      className="fixed top-0 left-0 w-full z-50 bg-gray-800 shadow-md"
       onMouseLeave={handleMouseLeave}
     >
       <nav className="container mx-auto px-4 flex justify-between items-center h-16">
@@ -195,7 +195,7 @@ export function Header() {
                 target={item.target}
                 rel={item.target ? "noopener noreferrer" : undefined}
                 className={`
-                  text-sm font-light text-gray-600 transition-all duration-300
+                  text-sm font-light text-gray-100 transition-all duration-300
                   hover:text-yellow-500
                   ${activeSubmenu === item.label ? "text-yellow-500 font-semibold" : ""}
                   ${item.isFeatured ? "font-bold text-yellow-500" : ""}
@@ -210,9 +210,9 @@ export function Header() {
         <div className="md:hidden flex items-center">
           <button onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Menu">
             {isMenuOpen ? (
-              <X size={28} className="text-gray-600" />
+              <X size={28} className="text-gray-100" />
             ) : (
-              <Menu size={28} className="text-gray-600" />
+              <Menu size={28} className="text-gray-100" />
             )}
           </button>
         </div>

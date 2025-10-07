@@ -13,6 +13,7 @@ import {
 import { motion } from "framer-motion"; // Importar o motion
 import { OverlayFilter } from "../ui/OverlayFilter";
 import { Marquee } from "../ui/Marquee";
+import VagasPopup from "./VagasPopup";
 
 export function HeroSection() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -58,12 +59,13 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative flex flex-col lg:items-start lg:justify-center min-h-screen px-4 py-16 text-gray-100 overflow-hidden">
+    <section className="relative flex flex-col lg:flex-row itens-center justify-center min-h-screen px-4 pt-16 text-gray-100 overflow-hidden">
       <OverlayFilter />
-      <div className="relative z-10 flex flex-col items-center text-center lg:ml-20">
+      <VagasPopup />
+      <div className="absolute top-14 left-1/2 -translate-x-1/2 z-10 lg:top-1/2 lg:left-0 lg:-translate-y-1/2 lg:translate-x-0 flex flex-col items-center justify-center text-center w-full lg:w-[auto] lg:pl-4 pt-20 lg:pt-0">
         {/* Animação de fade-in para o logo */}
         <motion.div
-          className="mb-4"
+          className="pb-2"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.2 }}
@@ -73,13 +75,13 @@ export function HeroSection() {
             alt="Logo Óticas Vizz"
             width={500}
             height={500}
-            className="w-[13rem]"
+            className="w-[10rem]"
           />
         </motion.div>
         <div className="flex flex-col items-center gap-3">
           {/* Animação dos ícones sociais */}
           <motion.div
-            className="flex justify-center gap-8"
+            className="flex justify-center gap-8 pb-2"
             variants={socialListVariants}
             initial="hidden"
             animate="visible"
@@ -99,7 +101,7 @@ export function HeroSection() {
             ))}
           </motion.div>
         </div>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mt-4 w-full">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mt-4">
           <Link
             href="/agendamento"
             className="group relative flex items-center gap-4 w-full max-w-sm md:w-auto justify-center px-6 py-3 rounded-xl bg-gradient-to-r from-gray-800 to-gray-500 text-white font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl overflow-x-hidden"
@@ -140,30 +142,14 @@ export function HeroSection() {
         initial={{ x: "100%" }} // Começa fora da tela, à direita
         animate={{ x: 0 }} // Anima para a posição original
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="absolute bottom-0 right-0 z-0 w-auto h-screen hidden lg:block"
+        className="absolute bottom-0 right-0 flex justify-center items-center z-0"
       >
         <Image
-          src="/images/hero-img.png"
+          src="/images/familia.png"
           alt="Hero Image"
-          width={350}
-          height={350}
-          className="w-auto h-screen"
-        />
-      </motion.div>
-
-      {/* Animação da imagem da modelo (Mobile) */}
-      <motion.div
-        initial={{ x: "100%" }}
-        animate={{ x: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="absolute bottom-0 right-0 z-0 w-auto lg:hidden"
-      >
-        <Image
-          src="/images/hero-img-mob.png"
-          alt="Hero Image"
-          width={350}
-          height={350}
-          className="w-auto"
+          width={1000}
+          height={1000}
+          className="w-[60rem] lg:w-[50rem]"
         />
       </motion.div>
 

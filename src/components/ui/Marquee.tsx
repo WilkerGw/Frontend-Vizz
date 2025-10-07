@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 const MarqueeContent = () => (
   <p className="flex-shrink-0 px-8 font-semibold">
     Exame de vista gratuito{' '}
-    <span className="font-extrabold text-yellow-400">TERÇA-FEIRA 23/09 - Das 14:00 Às 20:00</span>
+    <span className="font-extrabold text-yellow-400">HOJE 07/10 - Das 14:00 Às 20:00</span>
   </p>
 );
 
